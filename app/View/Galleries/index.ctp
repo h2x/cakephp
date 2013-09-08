@@ -1,7 +1,7 @@
 <?php echo $this->Html->script('lightbox/bootstrap-lightbox');?>
 <?php echo $this->Html->css('bootstrap-lightbox.min');?>
 
-
+<h2>Gallery</h2>
 <ul class="thumbnails">
     <?php foreach($gallery as $photo): ?>
         <div class="span2">

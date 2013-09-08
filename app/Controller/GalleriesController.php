@@ -4,26 +4,32 @@ App::uses('AppController', 'Controller');
 class GalleriesController extends AppController {
 
     public function index() {
-
+        $gallery = $this->Gallery->find('all');
+        $this->set(compact('gallery'));
     }
 
+    public function add(){
+
+    }
     public function uploadphotos($id)
     {
-        $path = "gallery/" . $id;
+        $this->autoRender = false;
+        $path = "img/gallery/" . $id;
 
-        debug($this->request->data);
-        //if folder does not already exist, create it
-        if(!file_exists($path))
+        //if there are any photos (if the first element in the photo array has a filename)
+        if($this->request->data['Gallery']['photos']['name'] != "")
         {
-            mkdir($path);
-        }
+            //if folder does not already exist, create it
+            if(!file_exists($path))
+            {
+                mkdir($path);
+            }
 
-        //declare array of allowed file extensions
-        $allowed_extensions = array('jpg', 'jpeg', 'png');
+            //declare array of allowed file extensions
+            $allowed_extensions = array('jpg', 'jpeg', 'png');
 
-        //loop through them
-        foreach($this->request->data as $file)
-        {
+            $file = $this->request->data['Gallery']['photos'];
+
             //get the file extension of the file we wish to upload
             $ext = substr(strtolower(strrchr($file['name'], '.')), 1);
 
@@ -37,29 +43,33 @@ class GalleriesController extends AppController {
                     $this->Gallery->create();
 
                     //set the foreign key in the photo table to reference the Vandalism we added earlier
-                    $this->Gallery->set();
+
 
                     //store the path to the image in the database so we can easily display it
                     $this->Gallery->set('file_path', $path . "/" . $file['name']);
 
 
-
                     $this->Gallery->set('thumb_path', $this->generateThumb($path, $file, 100));
 
                     //save record in the photo table
-
-                    if($this->Gallery->save($this->request->data) == false)
-
-                        return false;
+                    if($this->Gallery->save($this->request->data) == false){
+                        $this->Session->setFlash('Photo could not be saved','flash_bad');
+                    } else {
+                        $this->Session->setFlash('Photo has been uploaded successfully','flash_good');
+                        $this->redirect(array('action' => 'index'));
+                    }
+                } else {
+                    $this->Session->setFlash('Photo could not be moved','flash_bad');
+                    $this->redirect($this->referer());
                 }
-                else
-                    return false;
+            } else {
+                $this->Session->setFlash('File extension not supported. \'jpg\', \'jpeg\' and \'png\' are the only supported extensions','flash_bad');
+                $this->redirect($this->referer());
             }
-            else
-                return false;
+        } else {
+            $this->Session->setFlash('File is empty','flash_bad');
+            $this->redirect($this->referer());
         }
-
-
 
     }
 
@@ -100,6 +110,6 @@ class GalleriesController extends AppController {
 
         return $path . "/" . $file[0] . "_thumb" . "." . $file[1];
 
-        debug($this->request->data);
+
     }
 }

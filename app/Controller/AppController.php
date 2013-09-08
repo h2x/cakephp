@@ -34,7 +34,8 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
     var $components = array(
-        'DebugKit.Toolbar','Session'
+        //'DebugKit.Toolbar',
+        'Session'
     );
     var $project = array('Maintenance'=>'Maintenance','Design'=>'Design','Construction'=>'Construction');
    public function beforeRender(){
