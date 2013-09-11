@@ -31,10 +31,10 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="span4">
+        <div class="offset1 span5">
             <?php echo $this->Html->image('MiaMiaLogo.png', array('id'=>'logoFrontPage','url' => array('controller'=>'pages', 'action'=>'home'),'style'=>'padding-top:10px;margin-left:auto;margin-right:auto;display: block;')); ?>
         </div>
-        <div class="offset2 span6" style="margin-top: 50px">
+        <div class="offset1 span4" style="margin-top: 50px">
             <ul class="nav nav-tabs">
                 <li><?php echo $this->Html->link('<i class="icon-home"></i> Home', array('controller'=>'pages', 'action'=>'home'),array('escape'=>false));?></li>
                 <li><?php echo $this->Html->link('<i class="icon-picture"></i> Gallery', array('controller'=>'Galleries', 'action'=>'index'),array('escape'=>false));?></li>
@@ -43,10 +43,16 @@
             </ul>
         </div>
     </div>
+
+    <div class="row">
+    <div class="span1">  </div>
+    <div class="span10">
     <div id="content">
         <?php echo $this->fetch("content");?>
     </div>
+        </div>
 </div>
+  </div>
 </body>
 
 </html>
