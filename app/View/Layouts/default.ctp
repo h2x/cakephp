@@ -53,6 +53,7 @@
         <div class="offset1 span10">
             <div id="content">
                 <?php echo $this->Session->flash();?>
+                <div class="clearfix" style="padding-top: 25px"/>
                 <?php echo $this->fetch("content");?>
             </div>
         </div>
