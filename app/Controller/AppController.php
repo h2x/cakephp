@@ -34,12 +34,12 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
     var $components = array(
-        //'DebugKit.Toolbar',
+        'DebugKit.Toolbar',
         'Session'
     );
     var $project = array('Maintenance'=>'Maintenance','Design'=>'Design','Construction'=>'Construction');
-   public function beforeRender(){
-     $this->set('project',$this->project);
-   }
+    public function beforeRender(){
+        $this->set('project',$this->project);
+    }
     //var $project = array('Garden Maintenance'=>'Garden Maintenance','Garden Design'=>'Garden Design','Garden Construction'=>'Garden Construction');
 }

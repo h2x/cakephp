@@ -1,6 +1,7 @@
-<div class="well">
+<h2>Enquiry</h2>
+
     <div class="row" >
-        <div class="span3 offset2">
+        <div class="span3 offset1">
             <?php echo $this->Form->create(false);?>
             <label>First Name</label>
             <?php echo $this->Form->input('firstName',array('class'=>'span3','placeholder'=>'Your First Name','label'=>false,'required'=>true));?>
@@ -17,4 +18,3 @@
     <div class="row" style="text-align: center">
         <?php echo $this->Form->end(array('label'=>'Send Enquiry','class'=>'btn btn-primary'));?>
     </div>
-</div>

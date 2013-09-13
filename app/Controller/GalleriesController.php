@@ -11,10 +11,11 @@ class GalleriesController extends AppController {
     public function add(){
 
     }
-    public function uploadphotos($id)
+
+    public function uploadphotos()
     {
         $this->autoRender = false;
-        $path = "img/gallery/" . $id;
+        $path = "gallery";
 
         //if there are any photos (if the first element in the photo array has a filename)
         if($this->request->data['Gallery']['photos']['name'] != "")
@@ -32,6 +33,7 @@ class GalleriesController extends AppController {
 
             //get the file extension of the file we wish to upload
             $ext = substr(strtolower(strrchr($file['name'], '.')), 1);
+            debug($file);
 
             //only upload if the extension is valid (our array of vaid extensions is declared in AppController)
             if(in_array($ext, $allowed_extensions))
@@ -42,9 +44,6 @@ class GalleriesController extends AppController {
                     //if upload was successful, create record in photo table
                     $this->Gallery->create();
 
-                    //set the foreign key in the photo table to reference the Vandalism we added earlier
-
-
                     //store the path to the image in the database so we can easily display it
                     $this->Gallery->set('file_path', $path . "/" . $file['name']);
 
@@ -54,6 +53,7 @@ class GalleriesController extends AppController {
                     //save record in the photo table
                     if($this->Gallery->save($this->request->data) == false){
                         $this->Session->setFlash('Photo could not be saved','flash_bad');
+                        $this->redirect($this->referer());
                     } else {
                         $this->Session->setFlash('Photo has been uploaded successfully','flash_good');
                         $this->redirect(array('action' => 'index'));
