@@ -19,4 +19,3 @@
 </ul>
 
 
-<?php echo WWW_ROOT . 'gallery' . "/" ;?>

@@ -2,10 +2,6 @@
     $(document).ready(function(){
     //fadeout flash messages on click
         $('.alert').alert();
-
-        //alert($('.alert').height());
-        var topHeight = 0 - parseInt($('.alert').height(),10) - 82;
-        $('.alert').css('top',topHeight);
     });
 
 </script>
